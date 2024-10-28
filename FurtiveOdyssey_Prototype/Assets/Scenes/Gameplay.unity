@@ -1689,7 +1689,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: -2894167161484999383, guid: 5da1c077ce2084a42a7c34cd52f2dfe1, type: 2}
   m_audioClip: {fileID: 8300000, guid: 79c55d01cfcec7042b04603d44ec2368, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.248
+  m_Volume: 0.135
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -3606,7 +3606,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 7979403066459557496, guid: 5da1c077ce2084a42a7c34cd52f2dfe1, type: 2}
   m_audioClip: {fileID: 8300000, guid: e975f1c93004aaf45b4daa7d29d5ea99, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.4
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -3703,8 +3703,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 3227841916945446531}
-  maxVolume: 0.5
-  minVolume: 0.01
+  maxVolume: 0.18
+  minVolume: 0.005
   maxDistance: 15
   sawAudioSource: {fileID: 1283046938}
 --- !u!1 &1289013701
@@ -4581,7 +4581,6 @@ MonoBehaviour:
   player: {fileID: 4868060100426085297}
   enemies: []
   BombParticleSystem: {fileID: 2667323476218020170, guid: 9b045188623c8d441a304de0130e6ce3, type: 3}
-  bombAudioSource: {fileID: 1525514496}
   explosionDistance: 2
   playerDestroyed: 0
 --- !u!212 &1656423509
@@ -9113,6 +9112,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2411936115925291292, guid: be4bb7c50fe399449ad8c9b76e1c8228, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 871caa91daf644b40a0e31af5b01b1ea, type: 3}
     - target: {fileID: 4247097809043280088, guid: be4bb7c50fe399449ad8c9b76e1c8228, type: 3}
       propertyPath: m_Name
       value: Ross
