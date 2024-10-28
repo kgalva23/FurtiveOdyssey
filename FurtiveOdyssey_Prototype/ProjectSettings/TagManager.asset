@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Ground
+  - Box
+  - Bridge
+  - Projectile
+  - EnemyProjectile
+  - Enemy
+  - Sword
+  - Sawblade
+  - GoldenBlock
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - Ground
+  - Water
+  - UI
+  - Player
+  - Sword
+  - Button Top
+  - Base
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: UI
+    uniqueID: 2523068599
+    locked: 0
+  - name: Button
+    uniqueID: 2459631283
+    locked: 0
+  - name: Base
+    uniqueID: 3588768267
+    locked: 0
+  - name: Bridge
+    uniqueID: 1928191321
+    locked: 0
