@@ -46,7 +46,7 @@ public class EnemySpriteController : MonoBehaviour
         //Debug.Log("Distance to player: " + distanceToPlayer);
 
         // Change the enemy's sprite based on the distance
-        if (distanceToPlayer > 5)
+        if (distanceToPlayer > 7)
         {
             isPlayerDetected = false;
             spriteRenderer.sprite = relaxedSprite;  // Enemy is relaxed

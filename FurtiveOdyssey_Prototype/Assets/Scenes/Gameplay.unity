@@ -3399,6 +3399,11 @@ MonoBehaviour:
   - {fileID: 4353429570168616088}
   - {fileID: 3619632602772625523, guid: 10150afb2bfb6e7459660f26a30a219f, type: 3}
   timerInterval: 1.5
+  maxSpawnX: 100
+  minSpawnX: -7
+  platformDetectionHeights:
+  - -5
+  - 5
   counter: 0
 --- !u!4 &1270954355
 Transform:

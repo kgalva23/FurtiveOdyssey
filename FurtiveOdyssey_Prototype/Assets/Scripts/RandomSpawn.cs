@@ -6,36 +6,60 @@ using UnityEngine;
 public class RandomSpawn : MonoBehaviour
 {
     [SerializeField] List <GameObject> fallingObjects;
-
     [SerializeField] float timerInterval = 0.5f;
+    [SerializeField] float maxSpawnX = 100.0f;
+    [SerializeField] float minSpawnX = -7.0f;
+    [SerializeField] List<float> platformDetectionHeights; // List of heights to detect platforms
 
     float gameTimer;
-
     public int counter = 0;
 
     void FixedUpdate() {
         gameTimer += Time.deltaTime;    //set gameTimer to keep track of 
 
         //spawn objects every time interval is met, then reset timer
-        if (gameTimer >= timerInterval && counter <= 20) {
-            FallingObject();
+        if (gameTimer >= timerInterval && counter <= 25) {
+            SpawnFallingObjectAbovePlatform();
             gameTimer = 0;
             counter++;
         }
 
     }
 
-    public void FallingObject() {
-        float randomPos = Random.Range (-7.0f, 125.0f);           //random starting position for objects
-        //float speed = Random.Range(1.0f, 5.0f);                 //random speed for objects
-        int randomNum = Random.Range(0, fallingObjects.Count);  //random object from fallingObjects list
+     void SpawnFallingObjectAbovePlatform()
+    {
+        Vector3 spawnPosition = GetRandomSpawnPositionAbovePlatform();
 
-        //Instatiate a falling object at a random postion
-        GameObject objectFall = Instantiate(fallingObjects[randomNum], new Vector3(randomPos, -3.25f, 0f), Quaternion.identity);
+        // If a valid spawn position is found, instantiate the object
+        if (spawnPosition != Vector3.zero)
+        {
+            int randomNum = Random.Range(0, fallingObjects.Count);  // Random object from fallingObjects list
+            GameObject objectFall = Instantiate(fallingObjects[randomNum], spawnPosition, Quaternion.identity);
 
-        //Set the velocity of the falling object to be random from 1 to 5
-        objectFall.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+            // Set the initial velocity to zero to allow gravity to handle falling
+            objectFall.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+        }
+    }
 
+    Vector3 GetRandomSpawnPositionAbovePlatform()
+    {
+        foreach (float detectionHeight in platformDetectionHeights) // Try each detection height
+        {
+            float randomX = Random.Range(minSpawnX, maxSpawnX);
+            Vector2 raycastStart = new Vector2(randomX, detectionHeight);
+
+            // Cast a ray downward to detect platforms
+            RaycastHit2D hit = Physics2D.Raycast(raycastStart, Vector2.down, detectionHeight, LayerMask.GetMask("Ground"));
+
+            if (hit.collider != null)
+            {
+                // Spawn the enemy slightly above the platform
+                return new Vector3(randomX, hit.point.y + 1f, 0);
+            }
+        }
+
+        // Return zero vector if no valid position found after multiple attempts
+        return Vector3.zero;
     }
 
 }
