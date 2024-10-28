@@ -12,6 +12,7 @@ public class WeaponSwitcher : MonoBehaviour
     [SerializeField] Sprite regularSwordSprite;     // Default sword sprite
     [SerializeField] Sprite attackSwordSprite;      // Attack sword sprite
     public SpriteRenderer swordSpriteRenderer;            // SpriteRenderer for the sword
+    public SpriteRenderer gunSpriteRenderer;              // SpriteRenderer for the gun
 
     public Vector3 originalPosition;                // Store original position of the sword
 
@@ -46,7 +47,9 @@ public class WeaponSwitcher : MonoBehaviour
         if (isUsingProjectileLauncher)
         {
             // Switch to the Sword
-            projectileLauncher.SetActive(false); // Disable the gun
+            //projectileLauncher.SetActive(false); // Disable the gun
+            projectileLauncher.GetComponent<ProjectileLauncher>().enabled = false;
+            SetGunTransparency(0f);                // Make the gun invisible
             swordPrefab.SetActive(true);         // Enable the sword
             currentWeapon = swordPrefab;     // Set the sword as the current weapon
         }
@@ -54,12 +57,25 @@ public class WeaponSwitcher : MonoBehaviour
         {
             // Switch back to the ProjectileLauncher
             swordPrefab.SetActive(false);        // Disable the sword
-            projectileLauncher.SetActive(true);  // Enable the gun
+            SetGunTransparency(1f);                // Make the gun visible
+            //projectileLauncher.SetActive(true);  // Enable the gun
+            projectileLauncher.GetComponent<ProjectileLauncher>().enabled = true;
             currentWeapon = projectileLauncher;  // Set the ProjectileLauncher as the current weapon
         }
 
         // Toggle the state
         isUsingProjectileLauncher = !isUsingProjectileLauncher;
+    }
+
+     // Method to set gun transparency
+    void SetGunTransparency(float alpha)
+    {
+        if (gunSpriteRenderer != null)
+        {
+            Color gunColor = gunSpriteRenderer.color;
+            gunColor.a = alpha; // Set alpha transparency
+            gunSpriteRenderer.color = gunColor;
+        }
     }
 
     // Coroutine to change the sword sprite temporarily

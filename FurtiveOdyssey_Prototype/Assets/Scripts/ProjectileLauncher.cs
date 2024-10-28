@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class ProjectileLauncher : MonoBehaviour
 {
@@ -25,8 +27,18 @@ public class ProjectileLauncher : MonoBehaviour
     [SerializeField] float cooldownTime = .25f;
     float currentReloadTime = 0;
 
+    [SerializeField] TMP_Text outOfAmmoText; // Reference to the OutOfAmmo text on the Canvas
+
     void Awake(){
         currentAmmo = maxAmmo;
+    }
+
+    void Start() 
+    {
+        if (outOfAmmoText != null)
+        {
+            outOfAmmoText.gameObject.SetActive(false); // Ensure it's hidden initially
+        }
     }
 
     bool coolingDown = false;
@@ -36,6 +48,11 @@ public class ProjectileLauncher : MonoBehaviour
     {
 
         if(currentAmmo < 1){
+            if (outOfAmmoText != null)
+            {
+                StartCoroutine(FlashOutOfAmmoText());
+            }
+
             return 0;
         }
 
@@ -57,6 +74,22 @@ public class ProjectileLauncher : MonoBehaviour
 
         Destroy(newProjectile,2);
         return GetRecoilAmount();
+    }
+
+    IEnumerator FlashOutOfAmmoText()
+    {
+        outOfAmmoText.gameObject.SetActive(true); // Show the text
+
+        // Flashing effect
+        for (int i = 0; i < 3; i++)
+        {
+            outOfAmmoText.color = new Color(outOfAmmoText.color.r, outOfAmmoText.color.g, outOfAmmoText.color.b, 1);
+            yield return new WaitForSeconds(0.2f);
+            outOfAmmoText.color = new Color(outOfAmmoText.color.r, outOfAmmoText.color.g, outOfAmmoText.color.b, 0);
+            yield return new WaitForSeconds(0.2f);
+        }
+
+        outOfAmmoText.gameObject.SetActive(false); // Hide the text
     }
 
     void Cooldown(){
