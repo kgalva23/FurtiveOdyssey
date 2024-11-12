@@ -30,7 +30,8 @@ public class ScoreDisplay : MonoBehaviour
         //SetProgress(0.5f);
     }
 
-    void SetProgress (float progress) {
+    void SetProgress (float progress) 
+    {
         // Clamp progress between 0 and 1
         //progress = Mathf.Clamp01(progress);
         barTransform.localScale = new Vector3(progress, barTransform.localScale.y, 1);
