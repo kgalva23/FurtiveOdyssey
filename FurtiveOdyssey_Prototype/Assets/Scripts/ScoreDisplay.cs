@@ -27,27 +27,21 @@ public class ScoreDisplay : MonoBehaviour
     {
         // Initialize health bar progress
         SetProgress(1.0f);  // Full health at the start
-        //SetProgress(0.5f);
     }
 
     void SetProgress (float progress) 
     {
-        // Clamp progress between 0 and 1
-        //progress = Mathf.Clamp01(progress);
         barTransform.localScale = new Vector3(progress, barTransform.localScale.y, 1);
     }
+
     // Update is called once per frame
     void Update()
     {
-
         // Calculate health percentage from Ross's current health
         float healthProgress = ross.currentHealthStatus() / ross.maxHealthStatus();
 
         // Update the health bar based on the health percentage
         SetProgress(healthProgress);
-
-        //float healthProgress = ross.currentHealthStatus();
-
 
         // Convert Coin score to text and display the score
         int newCoinScore = ScoreCounter.Instance.totalCoinScore;

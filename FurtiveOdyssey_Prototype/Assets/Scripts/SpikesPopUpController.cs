@@ -8,7 +8,7 @@ public class SpikesPopUpController : MonoBehaviour
     public float speed = 2.0f;
     public float minWaitTime = 1.0f;
     public float maxWaitTime = 3.0f;
-    public float popUpHeight = 1.0f;
+    public float popUpHeight = -1.0f;
 
     public List<Transform> spikes = new List<Transform>();
 

@@ -13,6 +13,10 @@ TagManager:
   - Sword
   - Sawblade
   - GoldenBlock
+  - Heart
+  - Spike
+  - Electricity
+  - ElectricityZap
   layers:
   - Default
   - TransparentFX

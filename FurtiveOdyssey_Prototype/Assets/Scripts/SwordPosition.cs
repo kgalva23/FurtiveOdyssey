@@ -14,12 +14,6 @@ public class SwordPosition : MonoBehaviour
     void Start()
     {
         GameObject newSword = Instantiate(swordPrefab, swordSpawnTransform.position, Quaternion.identity);
-        
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

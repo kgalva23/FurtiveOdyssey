@@ -29,7 +29,8 @@ public class ProjectileLauncher : MonoBehaviour
 
     [SerializeField] TMP_Text outOfAmmoText; // Reference to the OutOfAmmo text on the Canvas
 
-    void Awake(){
+    void Awake()
+    {
         currentAmmo = maxAmmo;
     }
 
@@ -92,7 +93,8 @@ public class ProjectileLauncher : MonoBehaviour
         outOfAmmoText.gameObject.SetActive(false); // Hide the text
     }
 
-    void Cooldown(){
+    void Cooldown()
+    {
         coolingDown = true;
         StartCoroutine(CoolingDownRoutine());
         IEnumerator CoolingDownRoutine(){
@@ -104,7 +106,8 @@ public class ProjectileLauncher : MonoBehaviour
 
 
     bool currentlyReloading = false;
-    public void Reload(){
+    public void Reload()
+    {
 
         if(currentlyReloading){
             return;
@@ -133,18 +136,22 @@ public class ProjectileLauncher : MonoBehaviour
 
     }
 
-    public float GetReloadPercentage(){
+    public float GetReloadPercentage()
+    {
         return currentReloadTime / maxReloadTime;
     }
 
-    public float GetRecoilAmount(){
+    public float GetRecoilAmount()
+    {
         return projectileSpeed * 2;
     }
 
-    public int GetAmmo(){
+    public int GetAmmo()
+    {
         return currentAmmo;
     }
-    public int GetMaxAmmo(){
+    public int GetMaxAmmo()
+    {
         return maxAmmo;
     }
 

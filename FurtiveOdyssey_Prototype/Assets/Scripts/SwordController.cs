@@ -15,7 +15,6 @@ public class SwordController : MonoBehaviour
             EnemySpriteController enemy = other.GetComponent<EnemySpriteController>();
             if (enemy != null)
             {
-                //enemy.Die(); // Assumes the enemy has a Die method to handle death
                 Destroy(gameObject, 1f);
             }
         }

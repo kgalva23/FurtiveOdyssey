@@ -13,7 +13,7 @@ public class Ross : MonoBehaviour
 
     [SerializeField] AudioSource audioSource;
 
-    [SerializeField] float maxHealth = 1.0f;
+    [SerializeField] public float maxHealth = 1.0f;
 
     public float currentHealth;
 
@@ -27,6 +27,9 @@ public class Ross : MonoBehaviour
 
     public float horizontal;
     public float vertical;
+
+    public float damageCooldown = 2f; // Cooldown time in seconds
+    public float lastDamageTime = -2f; // Tracks the last time damage was applied
 
     public bool hasTakenDamage = false;
 
@@ -47,7 +50,8 @@ public class Ross : MonoBehaviour
         return rb;
     }
 
-    public void Movement(Vector3 movement) {
+    public void Movement(Vector3 movement) 
+    {
         rb.velocity = movement * speed;
     }
 
@@ -71,16 +75,21 @@ public class Ross : MonoBehaviour
         {
             takeDamage();
         }
+        else if (other.gameObject.CompareTag("Spike")) //Check if the player collides with a box
+        {
+            takeDamage();
+        }
+        else if (other.gameObject.CompareTag("Electricity")) //Check if the player collides with a box
+        {
+            takeDamage();
+        }
         else if (other.gameObject.CompareTag("GoldenBlock")) //Check if the player collides with the Golden block
         {
             winPanel.SetActive(true);               // Set the WinPanel active to display it
             LevelTimer.Instance.StopTimer();
             levelRecapScript.DisplayLevelRecap();
-            //SceneManager.LoadScene("VictoryScene");
-        }
-        else
-        {
-            takeDamage();
+            Debug.Log("Golden Block Triggered by Player");
+            UnlockNewLevel();
         }
     
     }
@@ -129,11 +138,33 @@ public class Ross : MonoBehaviour
         }
     }
 
-    public void Recoil(Vector3 amount){
+    //Method for handling particle system collisions
+    void OnParticleCollision(GameObject other)
+    {
+        // Check if the colliding particle system is tagged for damage
+        if (other.CompareTag("ElectricityZap"))
+        {
+            // Check if enough time has passed since the last damage
+            if (Time.time >= lastDamageTime + damageCooldown)
+            {
+                Debug.Log("Particle collision with Electricity detected!");
+                takeDamage();
+                lastDamageTime = Time.time; // Update the last damage time
+            }
+            else
+            {
+                Debug.Log("Damage is on cooldown!");
+            }
+        }
+    }
+
+    public void Recoil(Vector3 amount)
+    {
         rb.AddForce(amount, ForceMode2D.Impulse);
     }
 
-    public void FireGun(){
+    public void FireGun()
+    {
 
         // Check which way Ross is facing by checking the localScale.x value
         float facingDirection = transform.localScale.x > 0 ? 1 : -1;
@@ -175,7 +206,20 @@ public class Ross : MonoBehaviour
 
     }
 
-    public ProjectileLauncher GetProjectileLauncher(){
+    public void UnlockNewLevel() 
+    {
+        if (SceneManager.GetActiveScene().buildIndex >= PlayerPrefs.GetInt("ReachedIndex")) 
+        {
+            PlayerPrefs.SetInt("ReachedIndex", SceneManager.GetActiveScene().buildIndex + 1);
+            int newUnlockedLevel = PlayerPrefs.GetInt("UnlockedLevel", 1) + 1;
+            PlayerPrefs.SetInt("UnlockedLevel", newUnlockedLevel);
+            PlayerPrefs.Save();
+            Debug.Log("UnlockedLevel updated to: " + newUnlockedLevel);
+        }
+    }
+
+    public ProjectileLauncher GetProjectileLauncher()
+    {
         return projectileLauncher;
     }
 
@@ -195,6 +239,5 @@ public class Ross : MonoBehaviour
     {
         return isGrounded;
     }
-
     
 }

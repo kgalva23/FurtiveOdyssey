@@ -5,26 +5,26 @@ using UnityEngine;
 public class ElevatorController : MonoBehaviour
 {
     [SerializeField] buttonController button;
-    [SerializeField] float targetHeight = 10f; // Target height for the elevator
+    [SerializeField] float targetX = 13f; // Target height for the elevator
     [SerializeField] float duration = 3f;      // Time it takes to raise the elevator in seconds
 
     public Coroutine elevatorCoroutine = null; // Store reference to the current coroutine
 
-    public bool isElevatorUp = false;         // To track if the elevator is currently raised
+    public bool isElevatorDone = false;         // To track if the elevator is currently raised
 
     public Vector3 startPosition;             // Starting position of the elevator
-    public Vector3 targetPosition;            // Target position based on targetHeight
+    public Vector3 targetPosition;            // Target position based on targetX
 
     // Start is called before the first frame update
     void Start()
     {
         startPosition = transform.position;             // Set the starting position of the elevator
-        targetPosition = new Vector3(transform.position.x, transform.position.y + targetHeight, transform.position.z); // Set the target position based on the targetHeight
+        targetPosition = new Vector3(transform.position.x + targetX, transform.position.y, transform.position.z); // Set the target position based on the targetX
     }
 
     void FixedUpdate()
     {
-        if (button.returnButtonStatus() && !isElevatorUp)
+        if (button.returnButtonStatus() && !isElevatorDone)
         {
             // Start raising the elevator if the button is pressed and the elevator isn't fully up
             if (elevatorCoroutine != null)
@@ -33,7 +33,7 @@ public class ElevatorController : MonoBehaviour
             }
             elevatorCoroutine = StartCoroutine(MoveElevator(targetPosition)); // Start raising the elevator
         }
-        else if (!button.returnButtonStatus() && isElevatorUp)
+        else if (!button.returnButtonStatus() && isElevatorDone)
         {
             // Start lowering the elevator if the button is not pressed and the elevator isn't fully down
             if (elevatorCoroutine != null)
@@ -47,7 +47,7 @@ public class ElevatorController : MonoBehaviour
 
     IEnumerator MoveElevator(Vector3 target)
     {
-        isElevatorUp = (target == targetPosition); // Set the direction based on the target
+        isElevatorDone = (target == targetPosition); // Set the direction based on the target
 
         float elapsedTime = 0f;
         Vector3 initialPosition = transform.position; // Use the current position as the start point

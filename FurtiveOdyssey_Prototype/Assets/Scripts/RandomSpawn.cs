@@ -14,11 +14,13 @@ public class RandomSpawn : MonoBehaviour
     float gameTimer;
     public int counter = 0;
 
-    void FixedUpdate() {
+    void FixedUpdate() 
+    {
         gameTimer += Time.deltaTime;    //set gameTimer to keep track of 
 
         //spawn objects every time interval is met, then reset timer
-        if (gameTimer >= timerInterval && counter <= 25) {
+        if (gameTimer >= timerInterval && counter <= 25) 
+        {
             SpawnFallingObjectAbovePlatform();
             gameTimer = 0;
             counter++;
@@ -54,7 +56,7 @@ public class RandomSpawn : MonoBehaviour
             if (hit.collider != null)
             {
                 // Spawn the enemy slightly above the platform
-                return new Vector3(randomX, hit.point.y + 1f, 0);
+                return new Vector3(randomX, hit.point.y + 1.5f, 0);
             }
         }
 

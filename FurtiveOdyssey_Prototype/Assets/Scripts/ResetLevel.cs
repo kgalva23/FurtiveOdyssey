@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class ResetLevel : MonoBehaviour
 {
-
     // Reference to the WeaponSwitcher
     [SerializeField] BombController bombController;
 
@@ -17,6 +16,5 @@ public class ResetLevel : MonoBehaviour
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
-        
     }
 }

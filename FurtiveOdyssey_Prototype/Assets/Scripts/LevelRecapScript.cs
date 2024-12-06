@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class LevelRecapScript : MonoBehaviour
 {
@@ -31,7 +32,14 @@ public class LevelRecapScript : MonoBehaviour
 
         // Update the Completion Time text
         float completionTime = LevelTimer.Instance.GetElapsedTime();
-        LevelRecap.text = "Score: " + coinScore + "\nEnemies Killed: " + numEnemiesKilled + "\nCompletion Time: " + completionTime.ToString("F2") + "s";
+        if (SceneManager.GetActiveScene().name == "Level 3")
+        {
+            LevelRecap.text = "Nice Job! You beat the game!\n" + "\nScore: " + coinScore + "\nEnemies Killed: " + numEnemiesKilled + "\nCompletion Time: " + completionTime.ToString("F2") + "s";
+        }
+        else 
+        {
+            LevelRecap.text = "Score: " + coinScore + "\nEnemies Killed: " + numEnemiesKilled + "\nCompletion Time: " + completionTime.ToString("F2") + "s";
+        }
     }
 
 }

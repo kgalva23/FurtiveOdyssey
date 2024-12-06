@@ -43,7 +43,6 @@ public class EnemySpriteController : MonoBehaviour
     {
         // Calculate the distance between the enemy (this object) and the player
         float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
-        //Debug.Log("Distance to player: " + distanceToPlayer);
 
         // Change the enemy's sprite based on the distance
         if (distanceToPlayer > 7)
@@ -93,7 +92,6 @@ public class EnemySpriteController : MonoBehaviour
         //If Projectile hits enemy, they die
         if (other.CompareTag("Projectile")) 
         {
-            //ScoreCounter.Instance.AddToScore(1);
             Debug.Log("Enemy Destroyed");
 
             numOfEnemiesKilled++;
@@ -114,7 +112,6 @@ public class EnemySpriteController : MonoBehaviour
         //If Sword hits enemy, they die
         if (other.CompareTag("Sword")) 
         {
-            //ScoreCounter.Instance.AddToScore(1);
             Debug.Log("Enemy Destroyed");
 
             numOfEnemiesKilled++;
@@ -122,7 +119,6 @@ public class EnemySpriteController : MonoBehaviour
             isDead = true;  // Mark the enemy as dead
 
             Destroy(gameObject, 1f);
-            //Destroy(other.gameObject);
         }
     }
 
